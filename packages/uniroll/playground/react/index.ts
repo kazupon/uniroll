@@ -2,8 +2,8 @@
 
 import "regenerator-runtime";
 import { rollup } from "rollup";
-import { getBaseConfig } from "../src/config/base";
-import { createMemoryFs } from "../src";
+import { getBaseConfig } from "../../src/config/base";
+import { createMemoryFs } from "../../src/index";
 
 const tsRaw = `
 /** @jsx h */
