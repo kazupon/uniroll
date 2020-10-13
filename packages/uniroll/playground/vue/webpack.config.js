@@ -27,6 +27,7 @@ module.exports = {
     },
     alias: {
       vue: require.resolve('vue/dist/vue.esm-bundler.js'),
+      querystring: require.resolve('querystring-browser'),
       consolidate: false,
       assert: false,
       fs: false

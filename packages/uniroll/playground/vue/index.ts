@@ -5,7 +5,7 @@ import { createMemoryFs, getBaseConfig } from '../../src/index'
 const App = `
 <script lang="ts">
 import { defineComponent, ref, computed } from 'vue'
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from './HelloWorld.vue'
 
 export default defineComponent({
   name: 'App',
@@ -36,12 +36,19 @@ export default defineComponent({
   </div>
 </template>
 
-<style scoped>
-.container {
-  width: 100vw;
-  height: 100vh;
-}
-</style>
+`
+
+const HelloWorld = `
+<script>
+export default defineComponent({
+  name: 'HelloWorld',
+  props: ['msg']
+})
+</script>
+
+<template>
+  <p>{{ msg }}</p>
+</template>
 `
 
 const EntoryPoint = `
@@ -54,6 +61,7 @@ createApp(App).mount('#app')
 ;(async () => {
   const files = {
     '/App.vue': App,
+    '/HelloWorld.vue': HelloWorld,
     '/index.ts': EntoryPoint
   }
   const memfs = createMemoryFs(files)
@@ -61,7 +69,7 @@ createApp(App).mount('#app')
     fs: memfs,
     importmaps: {
       imports: {
-        vue: 'https://unpkg.com/vue@3.0.0/dist/vue.esm-browser.prod.js'
+        vue: 'https://unpkg.com/vue@3.0.0/dist/vue.runtime.esm-browser.js'
       }
     }
   })
@@ -72,13 +80,26 @@ createApp(App).mount('#app')
     },
     plugins: [
       ...plugins,
-      RollupVue()
+      RollupVue({
+        compilerOptions: {
+          mode: 'function',
+          scopeId: null,
+          sourceMap: false,
+          prefixIdentifiers: false,
+          cacheHandlers: false
+        }
+      })
     ]
   })
-  const out = await rolled.generate({
-    file: 'index.js',
-    format: 'iife'
-  });
-  const code = out.output[0].code
-  eval(code)
+  try {
+    const out = await rolled.generate({
+      file: 'index.js',
+      format: 'iife'
+    });
+    const code = out.output[0].code
+    console.log(code)
+    // eval(code)
+  } catch (e) {
+    console.error(e)
+  }
 })()

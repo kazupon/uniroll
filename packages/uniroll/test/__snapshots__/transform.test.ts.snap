@@ -57,7 +57,7 @@ let e$1 = { data: \\"\\" }, t$1 = t => { try {
 }
 catch (e) { } return t || e$1; }, a$1 = /(?:([a-z0-9-%@]+) *:? *([^{;]+?);|([^;}{]*?) *{)|(})/gi, l = /\\\\/\\\\*[\\\\s\\\\S]*?\\\\*\\\\/|\\\\s{2,}|\\\\n/gm, o$1 = (e, t, r) => { let a, l = \\"\\", n = \\"\\", c = \\"\\"; for (let s in e) {
     let p = e[s];
-    \\"object\\" == typeof p ? (a = t.replace(/([^,])+/g, \\"$& \\" + s) || s, /&/g.test(s) && (a = s.replace(/&/g, t)), n += \\"@\\" == s[0] ? \\"f\\" == s[1] ? o$1(p, s) : s + \\"{\\" + o$1(p, \\"k\\" == s[1] ? \\"\\" : t) + \\"}\\" : o$1(p, a, r)) : \\"@\\" == s[0] && \\"i\\" == s[1] ? l = s + \\" \\" + p + \\";\\" : c += o$1.p ? o$1.p(s.replace(/[A-Z]/g, \\"-$&\\").toLowerCase(), p) : s.replace(/[A-Z]/g, \\"-$&\\").toLowerCase() + \\":\\" + p + \\";\\";
+    \\"object\\" == typeof p ? (a = t ? t.replace(/([^,])+/g, e => s.replace(/([^,])+/g, t => /&/g.test(t) ? t.replace(/&/g, e) : e ? e + \\" \\" + t : t)) : s, n += \\"@\\" == s[0] ? \\"f\\" == s[1] ? o$1(p, s) : s + \\"{\\" + o$1(p, \\"k\\" == s[1] ? \\"\\" : t) + \\"}\\" : o$1(p, a, r)) : \\"@\\" == s[0] && \\"i\\" == s[1] ? l = s + \\" \\" + p + \\";\\" : c += o$1.p ? o$1.p(s.replace(/[A-Z]/g, \\"-$&\\").toLowerCase(), p) : s.replace(/[A-Z]/g, \\"-$&\\").toLowerCase() + \\":\\" + p + \\";\\";
 } return c[0] ? (a = t + \\"{\\" + c + \\"}\\", r ? n + r + \\"{\\" + (\\"@\\" == r[0] ? a : t + c) + \\"}\\" : l + a + n) : l + n; }, n$1 = {}, c$1 = e => { let t = \\"\\"; for (let r in e)
     t += r + (\\"object\\" == typeof e[r] ? c$1(e[r]) : e[r]); return t; }, s = (e, t, r, s, p) => { let i = \\"object\\" == typeof e ? c$1(e) : e, u = n$1[i] || (n$1[i] = \\"go\\" + i.split(\\"\\").reduce((e, t) => 101 * e + t.charCodeAt(0) >>> 0, 11)); if (!n$1[u]) {
     let t = \\"object\\" == typeof e ? e : (e => { let t, r = [{}]; for (; t = a$1.exec(e.replace(l, \\"\\"));)
@@ -1771,8 +1771,8 @@ console.log(sdk);
       ],
       "renderedLength": 537,
     },
-    "https://cdn.skypack.dev/-/goober@v2.0.6-qyigYWFFUVdBiyTPkinq/dist=es2020/goober.js": Object {
-      "originalLength": 2121,
+    "https://cdn.skypack.dev/-/goober@v2.0.7-ts7bCTHzMhDfjbWd7etw/dist=es2020/goober.js": Object {
+      "originalLength": 2149,
       "removedExports": Array [
         "extractCss",
         "setup",
@@ -1785,7 +1785,7 @@ console.log(sdk);
         "keyframes",
         "styled",
       ],
-      "renderedLength": 2517,
+      "renderedLength": 2557,
     },
     "https://cdn.skypack.dev/-/preact@v10.5.4-qgHtyEvF8JpWxHJcD0pk/dist=es2020/preact.js": Object {
       "originalLength": 10272,

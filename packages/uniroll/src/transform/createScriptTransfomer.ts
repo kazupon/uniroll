@@ -1,4 +1,5 @@
 import ts from "typescript";
+import qs from "querystring";
 
 const defaultCompilerOptions: ts.CompilerOptions = {
   target: ts.ScriptTarget.ES2019,
@@ -19,10 +20,21 @@ export const createTransformScript = ({
     : defaultCompilerOptions;
 
   return async (code: string, filename: string): Promise<{ code: string }> => {
+    if (filename.endsWith(".js")) {
+      return { code };
+    }
     if (filename.endsWith(".json")) {
       return {
         code: "export default " + JSON.stringify(JSON.parse(code)),
       };
+    }
+    // for Vue SFC (.vue)
+    if (filename.endsWith(".vue")) {
+      return { code };
+    }
+    // for parsed Vue SFC query
+    if (isVueSFCParseQuery(filename) && !filename.endsWith('.ts')) {
+      return { code };
     }
     const out = ts.transpileModule(code, {
       fileName: filename,
@@ -33,6 +45,11 @@ export const createTransformScript = ({
     };
   };
 };
+
+function isVueSFCParseQuery(id: string): boolean {
+  // e.g. (template block): `/App.vue?vue&type=template&id=472cff63`
+  return /\?vue&type/.test(id);
+}
 
 function getCompilerOptionsFromConfig(tsconfig: object | string) {
   const rawjson =

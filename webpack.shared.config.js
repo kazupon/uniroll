@@ -10,7 +10,7 @@ module.exports = {
       // url: path.join(__dirname, "shim/url.js"),
       url: "url",
       stream: "stream-browserify",
-      querystring: "querystring-es3",
+      querystring: "querystring-browser",
     },
     extensions: [".js", ".mjs", ".ts", ".tsx", ".json"],
   },
