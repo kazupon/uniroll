@@ -27,6 +27,8 @@ module.exports = {
     },
     alias: {
       vue: require.resolve('vue/dist/vue.esm-bundler.js'),
+      '@vue/compiler-dom': require.resolve('@vue/compiler-dom/dist/compiler-dom.cjs.prod.js'),
+      '@vue/compiler-core': require.resolve('@vue/compiler-core/dist/compiler-core.cjs.prod.js'),
       querystring: require.resolve('querystring-browser'),
       consolidate: false,
       assert: false,
@@ -50,17 +52,6 @@ module.exports = {
           }
         }
       },
-      // {
-      //   test: /\.png$/,
-      //   use: {
-      //     loader: 'url-loader',
-      //     options: { limit: 8192 }
-      //   }
-      // },
-      // {
-      //   test: /\.css$/i,
-      //   use: ['style-loader', 'css-loader']
-      // },
       {
         test: /\.js$/,
         include: /pluginutils/, // for @rollup/pluginutils

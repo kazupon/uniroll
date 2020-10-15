@@ -1,6 +1,8 @@
 import { rollup } from 'rollup'
 import RollupVue from 'rollup-plugin-vue'
 import { createMemoryFs, getBaseConfig } from '../../src/index'
+import { css as VueCSS } from './plugins/css'
+import { Vue as UnirollVue } from './plugins/vue'
 
 const App = `
 <script lang="ts">
@@ -35,20 +37,25 @@ export default defineComponent({
     <HelloWorld :msg="msg" />
   </div>
 </template>
-
 `
 
 const HelloWorld = `
 <script>
-export default defineComponent({
+export default {
   name: 'HelloWorld',
   props: ['msg']
-})
+}
 </script>
 
 <template>
   <p>{{ msg }}</p>
 </template>
+
+<style scoped>
+p {
+  color: red;
+}
+</style>
 `
 
 const EntoryPoint = `
@@ -79,16 +86,10 @@ createApp(App).mount('#app')
       console.warn('[warn]', warnings)
     },
     plugins: [
-      ...plugins,
-      RollupVue({
-        compilerOptions: {
-          mode: 'function',
-          scopeId: null,
-          sourceMap: false,
-          prefixIdentifiers: false,
-          cacheHandlers: false
-        }
-      })
+      RollupVue(),
+      VueCSS(),
+      UnirollVue(),
+      ...plugins
     ]
   })
   try {
@@ -98,7 +99,7 @@ createApp(App).mount('#app')
     });
     const code = out.output[0].code
     console.log(code)
-    // eval(code)
+    eval(code)
   } catch (e) {
     console.error(e)
   }
